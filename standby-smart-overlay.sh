@@ -61,11 +61,15 @@ build_overlay() {
     # the TrueNAS version that is currently installed.
     unmount_overlay
 
-    rm -f         "$WORK/disk_class.py.stock"         "$WORK/disk_class.py.patched"
+    rm -f \
+        "$WORK/disk_class.py.stock" \
+        "$WORK/disk_class.py.patched"
 
     cp -a "$TARGET" "$WORK/disk_class.py.stock"
 
-    python3 -         "$WORK/disk_class.py.stock"         "$WORK/disk_class.py.patched" <<'PY'
+    python3 - \
+        "$WORK/disk_class.py.stock" \
+        "$WORK/disk_class.py.patched" <<'PY'
 from pathlib import Path
 import sys
 
@@ -125,7 +129,9 @@ PY
     # Validate Python syntax before mounting anything over a TrueNAS file.
     python3 -m py_compile "$WORK/disk_class.py.patched"
 
-    if cmp -s         "$WORK/disk_class.py.stock"         "$WORK/disk_class.py.patched"
+    if cmp -s \
+        "$WORK/disk_class.py.stock" \
+        "$WORK/disk_class.py.patched"
     then
         log "The installed TrueNAS version does not require this overlay."
         rm -f "$OVERLAY"
@@ -133,7 +139,9 @@ PY
         return 0
     fi
 
-    install -m 0644         "$WORK/disk_class.py.patched"         "$OVERLAY"
+    install -m 0644 \
+        "$WORK/disk_class.py.patched" \
+        "$OVERLAY"
 
     log "Overlay was generated from the currently installed TrueNAS file."
 }
@@ -175,7 +183,12 @@ schedule_delayed_middleware_restart() {
 
     log "middlewared is already active; scheduling restart in ${RESTART_DELAY_SECONDS} seconds."
 
-    if /usr/bin/systemd-run         --unit="$RESTART_UNIT"         --on-active="${RESTART_DELAY_SECONDS}s"         --collect         /usr/bin/env bash "$SCRIPT_PATH" delayed-restart         >/dev/null
+    if /usr/bin/systemd-run \
+        --unit="$RESTART_UNIT" \
+        --on-active="${RESTART_DELAY_SECONDS}s" \
+        --collect \
+        /usr/bin/env bash "$SCRIPT_PATH" delayed-restart \
+        >/dev/null
     then
         touch "$RESTART_MARKER"
         log "Delayed middlewared restart was scheduled."
