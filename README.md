@@ -270,3 +270,11 @@ Restart `middlewared` or reboot TrueNAS so the original module is loaded again.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+
+### AI disclosure
+
+Parts of this project's code and documentation were developed and reviewed with assistance from OpenAI ChatGPT.
+
+The maintainer tested the resulting scripts on the supported TrueNAS version before release. AI-assisted output can contain errors, so review the code and understand the changes before using it on your own system.
