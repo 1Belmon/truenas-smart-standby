@@ -83,7 +83,6 @@ Do not store the scripts only in the TrueNAS system root filesystem. The operati
 
 Command examples use GitHub's `console` syntax highlighting. GitHub controls the exact colors for commands, prompts, and arguments based on the selected site theme.
 
-
 1. Copy `standby-smart-overlay.sh` to a persistent location.
 
 2. Edit this line:
@@ -144,7 +143,7 @@ The `boot` action schedules the delayed `middlewared` restart automatically.
 
 After a reboot, check:
 
-````console
+```console
 $ sudo /path/to/persistent-storage/truenas-smart-standby/standby-smart-overlay.sh status
 ```
 
@@ -164,7 +163,7 @@ middlewared is active after the delayed restart.
 
 You can also confirm that `middlewared` restarted:
 
-````console
+```console
 $ sudo systemctl show middlewared.service \
     -p MainPID \
     -p ActiveEnterTimestamp
@@ -174,7 +173,7 @@ $ sudo systemctl show middlewared.service \
 
 The active TrueNAS file should contain the standby-aware command construction:
 
-````console
+```console
 $ sudo grep -n 'cmd = \["smartctl"' \
     /usr/lib/python3/dist-packages/middlewared/utils/disks_/disk_class.py
 ```
@@ -200,7 +199,7 @@ LOG_BASE="/path/to/persistent-storage/truenas-smart-standby"
 
 Run it manually:
 
-````console
+```console
 $ sudo /path/to/persistent-storage/truenas-smart-standby/tools/hdd-wake-logger.sh
 ```
 
@@ -264,7 +263,7 @@ If low-power operation is important, schedule maintenance, replication, backups,
 
 Remove the startup task, then run:
 
-````console
+```console
 $ sudo /path/to/persistent-storage/truenas-smart-standby/standby-smart-overlay.sh unmount
 ```
 
